@@ -2,15 +2,6 @@ namespace SpriteKind {
     export const Crosshair = SpriteKind.create()
     export const camera = SpriteKind.create()
 }
-function superHot (list: Sprite[]) {
-    for (let value of list) {
-        animation.stopAnimation(animation.AnimationTypes.All, value)
-        while (value.vx != 0 && value.vy != 0) {
-            value.vx += -1
-            value.vy += -1
-        }
-    }
-}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     bullet = darts.create(assets.image`projectile`, SpriteKind.Projectile, player1.x, player1.y)
     bullet.angle = 0 - spriteutils.radiansToDegrees(spriteutils.angleFrom(player1, xhair))
@@ -18,6 +9,19 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     bullet.throwDart()
     bullet.setFlag(SpriteFlag.DestroyOnWall, true)
 })
+function enemyMov (list: any[]) {
+	
+}
+function bulletTime (list: Sprite[]) {
+    for (let value of list) {
+        animation.stopAnimation(animation.AnimationTypes.All, value)
+        if (player1.vx == 0 && player1.vy == 0) {
+            value.setVelocity(0, 0)
+        } else {
+            value.setVelocity(randint(-100, 100), randint(-100, 100))
+        }
+    }
+}
 let EnemySprite: Sprite = null
 let SpawnLocations: tiles.Location[] = []
 let bullet: Dart = null
@@ -91,15 +95,12 @@ game.onUpdate(function () {
         SpawnLocations = tiles.getTilesByType(sprites.dungeon.floorLight2)
         sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
         for (let index = 0; index < 10; index++) {
+            let enemyVel = 0
             EnemySprite = sprites.create(EnemyImages._pickRandom(), SpriteKind.Enemy)
-            EnemySprite.setVelocity(randint(-10, 10), randint(-10, 10))
+            EnemySprite.setVelocity(enemyVel, enemyVel)
             tiles.placeOnTile(EnemySprite, SpawnLocations.removeAt(randint(0, SpawnLocations.length - 1)))
             EnemyList.push(EnemySprite)
         }
     }
-    if (player1.vx == 0 && player1.vy == 0) {
-        superHot(EnemyList)
-    } else {
-    	
-    }
+    bulletTime(EnemyList)
 })
