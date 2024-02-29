@@ -7,7 +7,8 @@
         "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.4.1",
         "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0",
         "color-coded-tilemap": "*",
-        "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.2"
+        "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.2",
+        "Makey Makey Keymappings": "github:joylabz/makeymakey-makecode-arcade-extension#1.0.3"
     },
     "files": [
         "main.blocks",
@@ -17,7 +18,8 @@
         "tilemap.g.jres",
         "tilemap.g.ts",
         "images.g.jres",
-        "images.g.ts"
+        "images.g.ts",
+        "main.py"
     ],
     "testFiles": [
         "test.ts"
